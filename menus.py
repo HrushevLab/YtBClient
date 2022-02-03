@@ -1,6 +1,6 @@
-from parsePage import find_channel, findVideo
+from parsePage import find_channel, findVideo, myFeed
 
-import database
+import database, os
 
 def findChannel():
     name = input()
@@ -16,12 +16,16 @@ def checkSubs():
     database.checkSubs(database.connect())
 
 def mainMenu():
+    os.system("cls")
     print('1) My feeds')
     print('2) Subscriber')
     print('3) Search video')
     print('4) Search channel')
 
     command = input()
+    if command == "1":
+        myFeed()
+
     if command == "2":
         checkSubs()
 
@@ -34,4 +38,5 @@ def mainMenu():
 
 # findChannel()
 # checkSubs()
-mainMenu()
+while True:
+    mainMenu()

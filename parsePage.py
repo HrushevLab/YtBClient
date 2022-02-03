@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+from database import checkSubs, connect
 
 # import menus
 from player import startVideo
@@ -26,6 +27,20 @@ def channel_Parse(url,pageNum):
             # print(link[2].get('href'))
             print(str(count)+") "+name[1].text + " | " + link[2].get('href'))
             count = count+1
+        print(str(count) + ") Main menu")
+        command = input()
+        if command == "+":
+            return 'next'
+
+        if command != str(count):
+            item = all_video[int(command) - 1]
+            link = item.findAll('a')
+            linkStr = link[2].get('href')
+            try:
+                startVideo(linkStr)
+            except:
+                # menus.mainMenu()
+                print('123')
 
 def find_channel(name):
     queryName = name.replace(' ','+')
@@ -82,3 +97,10 @@ def findVideo(name):
             except:
                 # menus.mainMenu()
                 print('123')
+
+def myFeed():
+    subs = checkSubs(connect())
+    for sub in subs:
+        print("======================="+sub[1]+"===============================")
+        url = "https://vid.wxzm.sx/channel/"+sub[0]
+        channel_Parse(url,1)

@@ -26,7 +26,8 @@ def checkSubs(cursor):
     cursor.execute("SELECT * FROM subs")
     counter = 1
     records = cursor.fetchall()
-    for row in records:
-        print(str(counter)+") " +row[1])
-        counter = counter + 1
+    return records
+    # for row in records:
+    #     print(str(counter)+") " +row[1])
+    #     counter = counter + 1
 
